@@ -15,7 +15,7 @@ def sort_array(arr):
 
 def handle_client(client_socket):
     while True:
-        data = client_socket.recv(4096)
+        data = client_socket.recv(1024)
         data_arr = pickle.loads(data)
         print("Received array: " + repr(data_arr))
         data_arr = sort_array(data_arr)
@@ -31,13 +31,14 @@ def handle_client(client_socket):
 
 def start_server():
     my_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-    my_socket.bind(("192.168.150.1", 8976))
+    my_socket.bind(("localhost", 2064))
     if my_socket == -1:
         print("Could not create socket")
     my_socket.listen(5)
     print("Listening for new connections...")
     client_socket, addr = my_socket.accept()
     print("Accepted a new connection: " + str(addr))
+    handle_client(client_socket)
 
 
 start_server()

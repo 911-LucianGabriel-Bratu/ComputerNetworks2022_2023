@@ -5,7 +5,7 @@ import struct
 
 def start_client():
     my_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-    my_socket.connect(("192.168.150.1", 8976))
+    my_socket.connect(("localhost", 2064))
     if my_socket == -1:
         print("Socket could not connect")
     print("Successfully connected the socket to the server")
@@ -17,7 +17,7 @@ def start_client():
         data_to_send = pickle.dumps(array)
         my_socket.send(data_to_send)
         print("Successfully sent the array to the server")
-        received_data = my_socket.recv(4096)
+        received_data = my_socket.recv(1024)
         received_data = pickle.loads(received_data)
         print("Received: " + repr(received_data))
         received_min = my_socket.recv(1024)
